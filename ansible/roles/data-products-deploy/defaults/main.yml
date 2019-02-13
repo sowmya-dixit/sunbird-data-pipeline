@@ -64,3 +64,5 @@ service:
   search:
     url: http://{{groups['search1'][0]}}:9000
     path: /v3/search
+
+es_search_index: "compositesearch"
