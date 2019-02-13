@@ -18,5 +18,19 @@ telemetry_reverse_search_yarn_container_count: 1
 telemetry_object_de_normalization_yarn_container_count: 1
 telemetry_es_indexer_yarn_container_count: 1
 telemetry_location_updater_yarn_container_count: 1
-
 max_iteration_count_for_samza_job: 2
+location_db_redis_key_expiry_seconds: 3600
+redis_port: 6379
+__yarn_port__: 8000
+delayInMilliSeconds: 60000
+retryTimeInMilliSeconds: 10000
+retry_backoff_base_in_seconds: 10
+bypass_reverse_search: true
+retry_limit: 4
+retry_limit_enable: true
+environment_id: 10000000
+tr_secondary_route_events: "LOG,ERROR"
+google_vision_tagging: false
+google_api_key: "123"
+cassandra_port: 9042
+es_port: 9200
