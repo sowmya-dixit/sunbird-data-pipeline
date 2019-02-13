@@ -8,3 +8,4 @@ es_router_additional_config: "{{object_denormalization_additional_config_dir}}/e
 es_router_additional_secondary_config: "{{object_denormalization_additional_config_dir}}/es-router-additional-secondary-config.json"
 lpdeploy: no
 dpdeploy: no
+hadoop_version: 2.7.2
