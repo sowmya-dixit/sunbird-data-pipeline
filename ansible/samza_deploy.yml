@@ -1,6 +1,8 @@
 ---
 - name: "Start Nodemanager on Slaves"
   hosts: "yarn-slave"
+  vars:
+    hadoop_version: 2.7.2
   become: yes
   tasks:
     - name: Ensure yarn nodemanager is running
