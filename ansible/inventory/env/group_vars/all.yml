@@ -17,7 +17,7 @@ artifacts_container: "{{dp_vault_artifacts_container}}"
 artifacts_storage_account: "{{dp_azure_account_name}}"
 artifact_storage_key: "{{dp_vault_azure_account_key}}"
 azure_storage_secret: "{{dp_vault_azure_account_key}}"
-monasca_log_level: ERROR
+#monasca_log_level: ERROR
 resourcemanager: "{{ groups['yarn-master'][0] }}"
 yarn_slaves: "{{ groups['yarn-slave']}}"
 monitor_yarn_url: "http://{{ resourcemanager }}:8088/ws/v1/cluster/apps?states=RUNNING"
@@ -49,7 +49,7 @@ schema_repo_url: https://github.com/project-sunbird/sunbird-data-pipeline.git
 cassandra_host:  "{{ groups['cassandra'][0] }}"
 content_to_vec_url: http://{{ groups['analytics-api'][0] }}:9000/content-to-vec
 
-
+kibana_base_path : "/pipeline-dashboard"
 
 ################ LPA ###########################
 
@@ -69,11 +69,11 @@ secor:
   properties: ['secor.azure', 'secor.common', 'secor', 'secor.partition', 'log4j']
   artifact_dir: /mount/secor
   azure:
-    account_name: "sunbirddevtelemetry"
+    account_name: "{{dp_azure_account_name}}"
     account_key: "{{ dp_vault_azure_account_key }}"
     container_name: "{{channel_data_exhaust_bucket}}"
   paths: ['/mount/secor', '/mount/secor/reports', '/mount/secor/logs', '/home/analytics/sbin', '/mount/data/analytics']
-  channel: "#"
+  channel: "{{secor_alerts_slack_channel}}"
 
 # postgres
 # list of databases to be created

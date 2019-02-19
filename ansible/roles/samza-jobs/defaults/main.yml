@@ -18,6 +18,8 @@ telemetry_reverse_search_yarn_container_count: 1
 telemetry_object_de_normalization_yarn_container_count: 1
 telemetry_es_indexer_yarn_container_count: 1
 telemetry_location_updater_yarn_container_count: 1
+events_router_yarn_container_count: 1
+
 max_iteration_count_for_samza_job: 2
 location_db_redis_key_expiry_seconds: 3600
 redis_port: 6379
