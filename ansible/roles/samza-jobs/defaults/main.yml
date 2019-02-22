@@ -36,3 +36,7 @@ google_vision_tagging: false
 google_api_key: "123"
 cassandra_port: 9042
 es_port: 9200
+
+middleware_cassandra_keyspace: sunbird
+middleware_cassandra_user_table: user
+middleware_cassandra_location_table: location
