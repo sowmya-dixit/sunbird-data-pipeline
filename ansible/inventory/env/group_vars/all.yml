@@ -92,7 +92,7 @@ postgres:
   db_username: analytics
   db_name: analytics
   db_password: "{{dp_vault_pgdb_password}}"
-  db_table_name: refactor_consumer_channel_mapping
+  db_table_name: "{{env}}_consumer_channel_mapping"
   db_port: 5432
 postgres_address_space: 0.0.0.0/0 # Postgres trust address space
 
