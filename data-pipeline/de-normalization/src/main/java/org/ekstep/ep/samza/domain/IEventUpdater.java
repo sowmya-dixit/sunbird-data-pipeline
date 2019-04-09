@@ -94,7 +94,7 @@ public abstract class IEventUpdater {
         try {
             return df.parseDateTime(ts).getMillis();
         } catch(Exception ex) {
-            ex.printStackTrace();
+            LOGGER.info("", ex.getMessage());
             return 0L;
         }
     }
