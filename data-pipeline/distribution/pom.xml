@@ -23,47 +23,6 @@
          distribution project builds AFTER that one...
     -->
     <dependencies>
-        <!--
-        <dependency>
-            <groupId>org.ekstep.ecosystem.jobs</groupId>
-            <artifactId>reverse-search</artifactId>
-            <version>0.4.9</version>
-            <type>tar.gz</type>
-            <classifier>distribution</classifier>
-        </dependency>
-        -->
-        <dependency>
-            <groupId>org.ekstep.ecosystem.jobs</groupId>
-            <artifactId>de-duplication</artifactId>
-            <version>0.4.1</version>
-            <type>tar.gz</type>
-            <classifier>distribution</classifier>
-        </dependency>
-        <!--
-        <dependency>
-            <groupId>org.ekstep.ecosystem.jobs</groupId>
-            <artifactId>object-de-normalization</artifactId>
-            <version>0.1.5</version>
-            <type>tar.gz</type>
-            <classifier>distribution</classifier>
-        </dependency>
-        -->
-        <!--
-        <dependency>
-            <groupId>org.ekstep.ecosystem.jobs</groupId>
-            <artifactId>es-indexer</artifactId>
-            <version>0.0.5</version>
-            <type>tar.gz</type>
-            <classifier>distribution</classifier>
-        </dependency>
-        -->
-        <dependency>
-            <groupId>org.ekstep.ecosystem.jobs</groupId>
-            <artifactId>telemetry-validator</artifactId>
-            <version>0.1.6</version>
-            <type>tar.gz</type>
-            <classifier>distribution</classifier>
-        </dependency>
         <dependency>
             <groupId>org.ekstep.ecosystem.jobs</groupId>
             <artifactId>telemetry-extractor</artifactId>
@@ -73,10 +32,29 @@
         </dependency>
         <dependency>
             <groupId>org.ekstep.ecosystem.jobs</groupId>
+            <artifactId>telemetry-validator</artifactId>
+            <version>0.1.6</version>
+            <type>tar.gz</type>
+            <classifier>distribution</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.ekstep.ecosystem.jobs</groupId>
+            <artifactId>de-duplication</artifactId>
+            <version>0.4.1</version>
+            <type>tar.gz</type>
+            <classifier>distribution</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.ekstep.ecosystem.jobs</groupId>
             <artifactId>telemetry-router</artifactId>
             <version>0.0.9</version>
             <type>tar.gz</type>
             <classifier>distribution</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.ekstep.ecosystem.jobs</groupId>
+            <artifactId>druid-events-validator</artifactId>
+            <version>0.0.6</version>
         </dependency>
         <dependency>
             <groupId>org.ekstep.ecosystem.jobs</groupId>
@@ -99,17 +77,19 @@
             <type>tar.gz</type>
             <classifier>distribution</classifier>
         </dependency>
+        <!--
+        <dependency>
+            <groupId>org.ekstep.ecosystem.jobs</groupId>
+            <artifactId>druid-processor</artifactId>
+            <version>0.0.1</version>
+            <type>tar.gz</type>
+            <classifier>distribution</classifier>
+        </dependency>
+        -->
         <dependency>
             <groupId>org.ekstep.ecosystem.jobs</groupId>
             <artifactId>redis-updater</artifactId>
             <version>0.0.5</version>
-            <type>tar.gz</type>
-            <classifier>distribution</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.ekstep.ecosystem.jobs</groupId>
-            <artifactId>druid-events-validator</artifactId>
-            <version>0.0.6</version>
             <type>tar.gz</type>
             <classifier>distribution</classifier>
         </dependency>

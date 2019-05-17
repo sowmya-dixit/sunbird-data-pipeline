@@ -3,6 +3,7 @@ package org.ekstep.ep.samza.service;
 import static java.text.MessageFormat.format;
 
 import org.ekstep.ep.samza.core.Logger;
+import org.ekstep.ep.samza.domain.DeDupEngine;
 import org.ekstep.ep.samza.domain.Event;
 import org.ekstep.ep.samza.task.EventsRouterConfig;
 import org.ekstep.ep.samza.task.EventsRouterSink;
@@ -16,10 +17,13 @@ import java.util.Date;
 public class EventsRouterService {
 	
 	static Logger LOGGER = new Logger(EventsRouterService.class);
+	private final DeDupEngine deDupEngine;
 	private final EventsRouterConfig config;
 
-	public EventsRouterService(EventsRouterConfig config) {
+	public EventsRouterService(DeDupEngine deDupEngine, EventsRouterConfig config) {
+
 		this.config = config;
+		this.deDupEngine = deDupEngine;
 	}
 
 	public void process(EventsRouterSource source, EventsRouterSink sink) {
@@ -27,6 +31,24 @@ public class EventsRouterService {
 		try {
 			event = source.getEvent();
 			sink.setMetricsOffset(source.getSystemStreamPartition(), source.getOffset());
+
+			if(config.isDedupEnabled()) {
+				String checksum = event.getChecksum();
+
+				if (checksum == null) {
+					LOGGER.info(event.id(), "EVENT WITHOUT CHECKSUM & MID, PASSING THROUGH : {}", event);
+					event.markSkipped();
+				}
+				if (!deDupEngine.isUniqueEvent(checksum, config.dupStore())) {
+					LOGGER.info(event.id(), "DUPLICATE EVENT, CHECKSUM: {}", checksum);
+					event.markDuplicate();
+					sink.toDuplicateTopic(event);
+					return;
+				}
+				LOGGER.info(event.id(), "ADDING EVENT CHECKSUM TO STORE");
+				deDupEngine.storeChecksum(checksum, config.dupStore(), config.getExpirySeconds());
+			}
+
 			String eid = event.eid();
 			if(event.mid().contains("TRACE")){
 				SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
@@ -38,10 +60,9 @@ public class EventsRouterService {
 				sink.toSummaryEventsTopic(event);
 			} else if (eid.startsWith("ME_")) {
 				sink.incrementSkippedCount(event);
-			}else if("LOG".equals(eid)){
+			} else if ("LOG".equals(eid)) {
 				sink.toLogEventsTopic(event);
-			}
-			else {
+			} else {
 				sink.toTelemetryEventsTopic(event);
 			}
 		} catch (JsonSyntaxException e) {
