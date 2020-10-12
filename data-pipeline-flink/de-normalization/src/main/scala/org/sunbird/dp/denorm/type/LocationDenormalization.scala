@@ -3,6 +3,7 @@ package org.sunbird.dp.denorm.`type`
 import org.sunbird.dp.core.job.Metrics
 import org.sunbird.dp.denorm.domain.Event
 import org.sunbird.dp.denorm.task.DenormalizationConfig
+import org.sunbird.dp.denorm.util.CacheData
 
 class LocationDenormalization(config: DenormalizationConfig) {
 
