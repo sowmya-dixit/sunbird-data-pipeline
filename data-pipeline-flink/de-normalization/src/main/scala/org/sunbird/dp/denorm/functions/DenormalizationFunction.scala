@@ -34,7 +34,7 @@ class DenormalizationFunction(config: DenormalizationConfig)(implicit val mapTyp
 
   override def open(parameters: Configuration): Unit = {
     super.open(parameters)
-    denormCache = new DenormCache(config, new RedisConnect(config.metaRedisHost, config.metaRedisPort, config))
+    denormCache = new DenormCache(config, new RedisConnect(config.metaRedisHost, config.metaRedisPort1, config), new RedisConnect(config.metaRedisHost, config.metaRedisPort2, config))
     denormCache.init()
     deviceDenormalization = new DeviceDenormalization(config)
     userDenormalization = new UserDenormalization(config)

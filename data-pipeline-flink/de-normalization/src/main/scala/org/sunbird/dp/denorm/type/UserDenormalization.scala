@@ -26,7 +26,7 @@ class UserDenormalization(config: DenormalizationConfig) {
       val userData: mutable.Map[String, AnyRef] = if (config.userDenormVersion.equalsIgnoreCase("v2")) {
         cacheData.user.map(f => {(f._1.toLowerCase().replace("_", ""), f._2)})
       } else {
-        cacheData.user.map(f => {(f._1.toLowerCase().replace("_", ""), f._2)}) // .asInstanceOf[Map[String, String]]
+        userDataCache.getWithRetry(actorId).map(f => {(f._1.toLowerCase().replace("_", ""), f._2)}) // .asInstanceOf[Map[String, String]]
       }
 
       if (userData.isEmpty) {
