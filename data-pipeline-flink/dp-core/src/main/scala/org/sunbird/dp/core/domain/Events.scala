@@ -14,6 +14,8 @@ abstract class Events(val map: util.Map[String, Any]) {
 
   def kafkaKey(): String = mid()
 
+  def partition(): Int = telemetry.read[Int](keyPath = "partition").getOrElse(0).asInstanceOf[Number].intValue()
+
   def getChecksum: String = {
     val checksum = id()
     if (checksum != null) return checksum

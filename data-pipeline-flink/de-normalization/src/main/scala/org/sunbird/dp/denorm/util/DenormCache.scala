@@ -29,7 +29,7 @@ class DenormCache(val config: DenormalizationConfig, val redisConnect: RedisConn
     private var pipeline1: Pipeline = _
     private var currentPipeline: Pipeline = _
     val gson = new Gson()
-    val circ = new Circular(List(1,2))
+//    val circ = new Circular(List(1,2))
 
     def init() {
         this.pipeline = redisConnect.getConnection(0).pipelined()
@@ -41,14 +41,26 @@ class DenormCache(val config: DenormalizationConfig, val redisConnect: RedisConn
         this.pipeline1.close()
     }
 
-    def setPipeline(index: Int) {
-        println("redis node: " + index)
-        if(index == 1) this.currentPipeline = this.pipeline
-        else this.currentPipeline = this.pipeline1
+//    def setPipeline(index: Int) {
+//        println("redis node: " + index)
+//        if(index == 1) this.currentPipeline = this.pipeline
+//        else this.currentPipeline = this.pipeline1
+//    }
+
+    def setPipeline(partition: Int) {
+        println("partition: " + partition)
+        val list1 = List(0,1,2,3,4,5,6,7)
+        val list2 = List(8,9,10,11,12,13,14,15)
+        if (null != partition) {
+            if (list1.contains(partition)) this.currentPipeline = this.pipeline
+            else this.currentPipeline = this.pipeline1
+        }
+        else this.currentPipeline = this.pipeline
     }
 
     def getDenormData(event: Event): CacheData = {
-        setPipeline(circ.next)
+//        setPipeline(circ.next)
+        setPipeline(event.partition())
         this.currentPipeline.clear();
         val responses = scala.collection.mutable.Map[String, AnyRef]();
         getContentCache(event, responses)
@@ -179,21 +191,21 @@ class DenormCache(val config: DenormalizationConfig, val redisConnect: RedisConn
 
 }
 
-class Circular[A](list: Seq[A]) extends Iterator[A]{
-
-    val elements = new Queue[A] ++= list
-    var pos = 0
-
-    def next = {
-        if (pos == elements.length)
-            pos = 0
-        val value = elements(pos)
-        pos = pos + 1
-        value
-    }
-
-    def hasNext = !elements.isEmpty
-    def add(a: A): Unit = { elements += a }
-    override def toString = elements.toString
-
-}
+//class Circular[A](list: Seq[A]) extends Iterator[A]{
+//
+//    val elements = new Queue[A] ++= list
+//    var pos = 0
+//
+//    def next = {
+//        if (pos == elements.length)
+//            pos = 0
+//        val value = elements(pos)
+//        pos = pos + 1
+//        value
+//    }
+//
+//    def hasNext = !elements.isEmpty
+//    def add(a: A): Unit = { elements += a }
+//    override def toString = elements.toString
+//
+//}

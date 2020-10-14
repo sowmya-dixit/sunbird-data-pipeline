@@ -40,7 +40,7 @@ object EventFixture {
       |"pdata":{"id":"sunbird.app","pid":"sunbird.app","ver":"2.3.144"},"sid":"df936f82-e982-41ec-8412-70d414458272",
       |"did":"758e054a400f20f7677f2def76427dc13ad1f837"},"flags":{"dd_processed":true},
       |"mid":"mid1","type":"events","object":{"id":"","type":"",
-      |"version":"","rollup":{}}}""".stripMargin,
+      |"version":"","rollup":{}},"partition":0}""".stripMargin,
     // user_denorm = true, device_denorm=true, content_denorm=true
     s"""{"actor":{"type":"User","id":"610bab7d-1450-4e54-bf78-c7c9b14dbc81"},"eid":"INTERACT",
       |"edata":{"type":"OTHER","subtype":"sheen-animation-ended","id":"library","pageid":"library","extra":{"pos":[]}},
@@ -49,7 +49,7 @@ object EventFixture {
       |"pdata":{"id":"sunbird.app","pid":"sunbird.app","ver":"2.3.144"},"sid":"df936f82-e982-41ec-8412-70d414458272",
       |"did":"264d679186d4b0734d858d4e18d4d31e"},"flags":{"dd_processed":true},
       |"mid":"mid2","type":"events","object":{"id":"do_31249064359802470412856","type":"Content",
-      |"version":"","rollup":{}}}""".stripMargin,
+      |"version":"","rollup":{}},"partition":1}""".stripMargin,
     // user_denorm = false, device_denorm=true, content_denorm=true, collection_denorm=true
     s"""{"actor":{"type":"User","id":"b7470841-7451-43db-b5c7-2dcf4f8d3b24"},"eid":"INTERACT",
       |"edata":{"type":"OTHER","subtype":"sheen-animation-ended","id":"library","pageid":"library","extra":{"pos":[]}},
@@ -58,7 +58,7 @@ object EventFixture {
       |"pdata":{"id":"sunbird.app","pid":"sunbird.app","ver":"2.3.144"},"sid":"df936f82-e982-41ec-8412-70d414458272",
       |"did":"45f32f48592cb9bcf26bef9178b7bd20abe24932"},"flags":{"dd_processed":true},
       |"mid":"mid3","type":"events","object":{"id":"do_312526125187809280139353","type":"Content",
-      |"version":"","rollup":{"l1":"do_312526125187809280139355"}}}""".stripMargin,
+      |"version":"","rollup":{"l1":"do_312526125187809280139355"}},"partition":2}""".stripMargin,
     // user_denorm = true, dialcode_denorm=true
     s"""{"actor":{"type":"User","id":"610bab7d-1450-4e54-bf78-c7c9b14dbc81"},"eid":"INTERACT",
       |"edata":{"type":"OTHER","subtype":"sheen-animation-ended","id":"library","pageid":"library","extra":{"pos":[]}},
@@ -67,7 +67,7 @@ object EventFixture {
       |"pdata":{"id":"sunbird.app","pid":"sunbird.app","ver":"2.3.144"},"sid":"df936f82-e982-41ec-8412-70d414458272",
       |"did":"45f32f48592cb9bcf26bef9178b7bd20abe24932"},"flags":{"dd_processed":true},
       |"mid":"mid4","type":"events","object":{"id":"GWNI38","type":"DialCode",
-      |"version":"","rollup":{}}}""".stripMargin,
+      |"version":"","rollup":{}},"partition":3}""".stripMargin,
     // user_denorm = false, dialcode_denorm=true
     s"""{"actor":{"type":"User","id":"610bab7d-1450-4e54-bf78-c7c9b14dbc82"},"eid":"INTERACT",
       |"edata":{"type":"OTHER","subtype":"sheen-animation-ended","id":"library","pageid":"library","extra":{"pos":[]}},
@@ -76,7 +76,7 @@ object EventFixture {
       |"pdata":{"id":"sunbird.app","pid":"sunbird.app","ver":"2.3.144"},"sid":"df936f82-e982-41ec-8412-70d414458272",
       |"did":"45f32f48592cb9bcf26bef9178b7bd20abe24932"},"flags":{"dd_processed":true},
       |"mid":"mid5","type":"events","object":{"id":"PCZKA3","type":"qr",
-      |"version":"","rollup":{}}}""".stripMargin,
+      |"version":"","rollup":{}},"partition":4}""".stripMargin,
       // user_denorm = false, dialcode_denorm=true
     s"""{"actor":{"type":"User","id":"610bab7d-1450-4e54-bf78-c7c9b14dbc82"},"eid":"INTERACT",
       |"edata":{"type":"OTHER","subtype":"sheen-animation-ended","id":"library","pageid":"library","extra":{"pos":[]}},
