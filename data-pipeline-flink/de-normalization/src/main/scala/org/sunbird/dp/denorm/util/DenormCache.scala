@@ -47,20 +47,10 @@ class DenormCache(val config: DenormalizationConfig, val redisConnect: RedisConn
 //        else this.currentPipeline = this.pipeline1
 //    }
 
-    def setPipeline(partition: Int) {
-        println("partition: " + partition)
-        val list1 = List(0,1,2,3,4,5,6,7)
-        val list2 = List(8,9,10,11,12,13,14,15)
-        if (null != partition) {
-            if (list1.contains(partition)) this.currentPipeline = this.pipeline
-            else this.currentPipeline = this.pipeline1
-        }
-        else this.currentPipeline = this.pipeline
-    }
 
     def getDenormData(event: Event): CacheData = {
 //        setPipeline(circ.next)
-        setPipeline(event.partition())
+        this.currentPipeline = if (event.partition() % 2 == 0) this.pipeline else this.pipeline1
         this.currentPipeline.clear();
         val responses = scala.collection.mutable.Map[String, AnyRef]();
         getContentCache(event, responses)
