@@ -128,4 +128,8 @@ class DenormalizationConfig(override val config: Config, jobName: String) extend
   //user store key prefix
   val userStoreKeyPrefix = "user:"
 
+  //Thresholds
+  val thresholdBatchReadInterval: Int = config.getInt("threshold.batch.read.interval")
+  val thresholdBatchReadSize: Int = config.getInt("threshold.batch.read.size")
+
 }

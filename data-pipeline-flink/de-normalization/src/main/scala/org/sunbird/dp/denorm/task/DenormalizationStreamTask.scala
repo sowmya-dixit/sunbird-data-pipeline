@@ -11,6 +11,9 @@ import org.sunbird.dp.core.job.FlinkKafkaConnector
 import org.sunbird.dp.core.util.FlinkUtil
 import org.sunbird.dp.denorm.domain.Event
 import org.sunbird.dp.denorm.functions._
+import org.apache.flink.streaming.api.windowing.time.Time
+import org.apache.flink.streaming.api.windowing.windows.TimeWindow
+import org.sunbird.dp.core.job.CountTriggerWithTimeout
 
 /**
  * Denormalization stream task does the following pipeline processing in a sequence:
@@ -61,6 +64,9 @@ class DenormalizationStreamTask(config: DenormalizationConfig, kafkaConnector: F
     val denormStream =
       env.addSource(source, config.denormalizationConsumer).uid(config.denormalizationConsumer)
         .setParallelism(config.kafkaConsumerParallelism).rebalance()
+        .keyBy(x => List(x.partition(), x.did(), x.objectID(), x.actorId()).mkString("-"))
+        .timeWindow(Time.seconds(config.thresholdBatchReadInterval))
+        .trigger(new CountTriggerWithTimeout[TimeWindow](config.thresholdBatchReadSize, env.getStreamTimeCharacteristic))
         .process(new DenormalizationFunction(config)).name(config.denormalizationFunction).uid(config.denormalizationFunction)
           .setParallelism(config.telemetryDownstreamOperatorsParallelism)
 

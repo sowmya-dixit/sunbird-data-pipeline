@@ -22,11 +22,13 @@ import scala.collection.mutable.Queue
 case class CacheData(content: Map[String, AnyRef], collection: Map[String, AnyRef], l2data: Map[String, AnyRef], device: Map[String, AnyRef],
                      dialCode: Map[String, AnyRef], user: Map[String, AnyRef])
 
-class DenormCache(val config: DenormalizationConfig, val redisConnect: RedisConnect, val redisConnect1: RedisConnect) {
+class DenormCache(val config: DenormalizationConfig, val redisConnect: RedisConnect, val redisConnect1: RedisConnect, val redisConnect2: RedisConnect, val redisConnect3: RedisConnect) {
 
     private[this] val logger = LoggerFactory.getLogger(classOf[DenormCache])
     private var pipeline: Pipeline = _
     private var pipeline1: Pipeline = _
+    private var pipeline2: Pipeline = _
+    private var pipeline3: Pipeline = _
     private var currentPipeline: Pipeline = _
     val gson = new Gson()
 //    val circ = new Circular(List(1,2))
@@ -34,11 +36,15 @@ class DenormCache(val config: DenormalizationConfig, val redisConnect: RedisConn
     def init() {
         this.pipeline = redisConnect.getConnection(0).pipelined()
         this.pipeline1 = redisConnect1.getConnection(0).pipelined()
+        this.pipeline2 = redisConnect2.getConnection(0).pipelined()
+        this.pipeline3 = redisConnect3.getConnection(0).pipelined()
     }
 
     def close() {
         this.pipeline.close()
         this.pipeline1.close()
+        this.pipeline2.close()
+        this.pipeline3.close()
     }
 
 //    def setPipeline(index: Int) {
@@ -50,7 +56,12 @@ class DenormCache(val config: DenormalizationConfig, val redisConnect: RedisConn
 
     def getDenormData(event: Event): CacheData = {
 //        setPipeline(circ.next)
-        this.currentPipeline = if (event.partition() % 2 == 0) this.pipeline else this.pipeline1
+//        this.currentPipeline = if (event.partition() % 2 == 0) this.pipeline else this.pipeline1
+        val mod4 = event.partition() % 4
+        this.currentPipeline = if (mod4 == 0) this.pipeline
+        else if(mod4 == 1) this.pipeline1
+        else if(mod4 == 2) this.pipeline2
+        else this.pipeline3
         this.currentPipeline.clear();
         val responses = scala.collection.mutable.Map[String, AnyRef]();
         getContentCache(event, responses)

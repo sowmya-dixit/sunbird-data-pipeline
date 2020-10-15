@@ -38,6 +38,8 @@ class BaseJobConfig(val config: Config, val jobName: String) extends Serializabl
   val metaRedisPort: Int = Option(config.getInt("redis-meta.port")).getOrElse(6379)
   val metaRedisPort1: Int = Option(config.getInt("redis-meta.port1")).getOrElse(6379)
   val metaRedisPort2: Int = Option(config.getInt("redis-meta.port2")).getOrElse(6380)
+  val metaRedisPort3: Int = Option(config.getInt("redis-meta.port3")).getOrElse(6381)
+  val metaRedisPort4: Int = Option(config.getInt("redis-meta.port4")).getOrElse(6382)
 
   // Checkpointing config
   val enableCompressedCheckpointing: Boolean = config.getBoolean("task.checkpointing.compressed")
